@@ -10,13 +10,13 @@ import androidx.lifecycle.MutableLiveData;
 import com.danielmaia.flights.repository.FlightRepository;
 import com.danielmaia.flights.retrofit.responses.FlightResponse;
 
-public class PageOutboundViewModel extends AndroidViewModel {
+public class PageInboundViewModel extends AndroidViewModel {
 
     private FlightRepository flightRepository;
     private LiveData<FlightResponse> flightResponseLiveData;
     private MutableLiveData<Integer> filterCount;
 
-    public PageOutboundViewModel(@NonNull Application application) {
+    public PageInboundViewModel(@NonNull Application application) {
         super(application);
 
         flightRepository = new FlightRepository();

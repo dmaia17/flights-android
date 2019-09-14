@@ -2,20 +2,20 @@ package com.danielmaia.flights;
 
 import android.app.Application;
 
-public class AppVoo extends Application {
+public class AppFlights extends Application {
 
     private int currentSort;
     private int[] currentFilter;
 
-    private static AppVoo instance;
+    private static AppFlights instance;
 
-    public AppVoo() {
+    public AppFlights() {
         instance = this;
     }
 
-    public synchronized static AppVoo getInstance() {
+    public synchronized static AppFlights getInstance() {
         if (instance == null)
-            new AppVoo();
+            new AppFlights();
 
         return instance;
     }

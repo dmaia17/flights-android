@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.danielmaia.flights.AppVoo;
+import com.danielmaia.flights.AppFlights;
 import com.danielmaia.flights.database.VooDatabase;
 import com.danielmaia.flights.model.Flight;
 import com.danielmaia.flights.retrofit.ApiRequest;
@@ -59,7 +59,7 @@ public class FlightRepository {
                                             flight.setType(Constantes.OUTBOUND);
                                             flight.setPeriod(Util.getPeriodOfTheDay(flightDto.getDepartureDate()));
 
-                                            VooDatabase.getInstance(AppVoo.getInstance()).getFlightDao().insert(flight);
+                                            VooDatabase.getInstance(AppFlights.getInstance()).getFlightDao().insert(flight);
                                         }
 
                                         for (FlightDto flightDto : response.body().getInbound()){
@@ -77,11 +77,15 @@ public class FlightRepository {
                                             flight.setType(Constantes.INBOUND);
                                             flight.setPeriod(Util.getPeriodOfTheDay(flightDto.getDepartureDate()));
 
-                                            VooDatabase.getInstance(AppVoo.getInstance()).getFlightDao().insert(flight);
+                                            VooDatabase.getInstance(AppFlights.getInstance()).getFlightDao().insert(flight);
                                         }
                                     }
+
+                                    data.postValue(response.body());
                                 }
                             });
+
+
                         }
                     }
 
@@ -92,6 +96,7 @@ public class FlightRepository {
                 });
         return data;
     }
+
 
 
 }

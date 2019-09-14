@@ -8,13 +8,14 @@
     <!--Main Activity -->
     <string name="main_title_1">VOO DE IDA</string>
     <string name="main_title_2">VOO DE VOLTA</string>
-    <string name="main_filtered">Com filtro: %o voos</string>
     <string name="main_filter">FILTRAR</string>
     <string name="main_sort">ORDENAR</string>
+    <string name="main_count_filter_one">Com filtro: 1 voo</string>
+    <string name="main_count_filter">Com filtro: %d voos</string>
 
-    <string name="main_adapter_price">R$ %o</string>
+    <string name="main_adapter_price">R$ %s</string>
     <string name="main_adapter_buy">Comprar</string>
-    <string name="main_adapter_stop">%o parada</string>
-    <string name="main_adapter_stops">%o paradas</string>
+    <string name="main_adapter_stop">%s, %d parada</string>
+    <string name="main_adapter_stops">%s, %d paradas</string>
     <string name="main_adapter_tax_price">Valor total c/ taxas</string>
 </resources>
