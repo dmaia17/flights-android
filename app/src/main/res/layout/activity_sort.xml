@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:layout_marginTop="17dp"
-            android:drawablePadding="5dp"
+            android:drawablePadding="11dp"
+            android:drawableLeft="@drawable/ic_short"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             android:text="@string/sort_subtitle"/>

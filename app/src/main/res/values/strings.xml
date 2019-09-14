@@ -21,10 +21,39 @@
     <string name="main_adapter_tax_price">Valor total c/ taxas</string>
 
     <!--Sort Activity -->
-    <string name="sort_title">Ordenação</string>
+    <string name="sort_title">ORDENAÇÃO</string>
     <string name="sort_subtitle">Ordenar</string>
     <string name="sort_lowest_price">Menor preço</string>
     <string name="sort_biggest_price">Maior preço</string>
     <string name="sort_price_time">Menor Preço e Menor tempo de voo</string>
     <string name="sort_button">Aplicar ordenação</string>
+
+    <!--Filter Activity -->
+    <string name="filter_title">FILTROS</string>
+    <string name="filter_clean_menu">LIMPAR</string>
+    <string name="filter_subtitle_time">Filtrar por Horário</string>
+    <string name="filter_morning">MANHÃ</string>
+    <string name="filter_afternoon">TARDE</string>
+    <string name="filter_night">NOITE</string>
+    <string name="filter_dawn">MADRUGADA</string>
+    <string name="filter_morning_desc"> - 06:00 às 11:59 (%d VOOS)</string>
+    <string name="filter_afternoon_desc"> - 12:00 às 17:59 (%d VOOS)</string>
+    <string name="filter_night_desc"> - 18:00 às 23:59 (%d VOOS)</string>
+    <string name="filter_dawn_desc"> - 00:00 às 05:59 (%d VOO)</string>
+    <string name="filter_subtitle_stop">Filtrar por Paradas</string>
+    <string name="filter_no_stop">VOO DIRETO</string>
+    <string name="filter_one_stop">1 PARADA</string>
+    <string name="filter_no_stop_desc"> (%d VOOS)</string>
+    <string name="filter_one_stop_desc"> (%d VOOS)</string>
+    <string name="filter_button_filter">Aplicar filtro</string>
 </resources>
+
+
+
+
+
+
+
+
+
+

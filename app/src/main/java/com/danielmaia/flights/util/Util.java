@@ -28,12 +28,12 @@ public class Util {
         int hour = cal.get(Calendar.HOUR_OF_DAY);
 
         if (hour < 6)
-            return Constantes.DAWN;
+            return Constants.DAWN;
         else if (hour < 12)
-            return Constantes.MORNING;
+            return Constants.MORNING;
         else if (hour < 18)
-            return Constantes.AFTERNOON;
+            return Constants.AFTERNOON;
         else
-            return Constantes.NIGHT;
+            return Constants.NIGHT;
     }
 }

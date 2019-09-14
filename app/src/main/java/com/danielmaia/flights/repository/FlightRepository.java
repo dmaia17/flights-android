@@ -7,13 +7,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.danielmaia.flights.AppFlights;
-import com.danielmaia.flights.database.VooDatabase;
+import com.danielmaia.flights.database.FlightDatabase;
 import com.danielmaia.flights.model.Flight;
 import com.danielmaia.flights.retrofit.ApiRequest;
 import com.danielmaia.flights.retrofit.RetrofitRequest;
 import com.danielmaia.flights.retrofit.responses.FlightDto;
 import com.danielmaia.flights.retrofit.responses.FlightResponse;
-import com.danielmaia.flights.util.Constantes;
+import com.danielmaia.flights.util.Constants;
 import com.danielmaia.flights.util.Util;
 
 import retrofit2.Call;
@@ -56,10 +56,10 @@ public class FlightRepository {
                                             flight.setDepartureDate(flightDto.getDepartureDate().getTime());
                                             flight.setArrivalDate(flightDto.getArrivalDate().getTime());
                                             flight.setSaleTotal(flightDto.getPricing().getOta().getSaleTotal());
-                                            flight.setType(Constantes.OUTBOUND);
+                                            flight.setType(Constants.OUTBOUND);
                                             flight.setPeriod(Util.getPeriodOfTheDay(flightDto.getDepartureDate()));
 
-                                            VooDatabase.getInstance(AppFlights.getInstance()).getFlightDao().insert(flight);
+                                            FlightDatabase.getInstance(AppFlights.getInstance()).getFlightDao().insert(flight);
                                         }
 
                                         for (FlightDto flightDto : response.body().getInbound()){
@@ -74,10 +74,10 @@ public class FlightRepository {
                                             flight.setDepartureDate(flightDto.getDepartureDate().getTime());
                                             flight.setArrivalDate(flightDto.getArrivalDate().getTime());
                                             flight.setSaleTotal(flightDto.getPricing().getOta().getSaleTotal());
-                                            flight.setType(Constantes.INBOUND);
+                                            flight.setType(Constants.INBOUND);
                                             flight.setPeriod(Util.getPeriodOfTheDay(flightDto.getDepartureDate()));
 
-                                            VooDatabase.getInstance(AppFlights.getInstance()).getFlightDao().insert(flight);
+                                            FlightDatabase.getInstance(AppFlights.getInstance()).getFlightDao().insert(flight);
                                         }
                                     }
 

@@ -32,7 +32,7 @@ public class AppPreferences {
         return instance;
     }
 
-    public void setCurrentFilter( int[] array){
+    public void setCurrentFilter(int[] array){
         editor.putInt(LEN_PREFIX + PREFERENCE_CURRENT_FILTER, array.length);
         int count = 0;
 

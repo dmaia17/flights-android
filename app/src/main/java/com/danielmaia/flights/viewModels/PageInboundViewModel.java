@@ -19,8 +19,9 @@ public class PageInboundViewModel extends AndroidViewModel {
     public PageInboundViewModel(@NonNull Application application) {
         super(application);
 
-        flightRepository = new FlightRepository();
         filterCount = new MutableLiveData<Integer>();
+
+        flightRepository = new FlightRepository();
         this.flightResponseLiveData = flightRepository.getFlights();
     }
 

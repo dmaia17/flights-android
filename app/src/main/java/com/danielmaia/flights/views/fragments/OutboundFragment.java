@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +19,10 @@ import android.widget.TextView;
 
 import com.danielmaia.flights.AppFlights;
 import com.danielmaia.flights.R;
-import com.danielmaia.flights.database.VooDatabase;
+import com.danielmaia.flights.database.FlightDatabase;
 import com.danielmaia.flights.model.Flight;
 import com.danielmaia.flights.util.AppPreferences;
-import com.danielmaia.flights.util.Constantes;
+import com.danielmaia.flights.util.Constants;
 import com.danielmaia.flights.viewModels.PageOutboundViewModel;
 import com.danielmaia.flights.views.adapters.OutboundAdapter;
 
@@ -134,24 +133,24 @@ public class OutboundFragment extends Fragment {
 
             switch (lenght){
                 case 0:
-                    fragment.flightList = VooDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights(Constantes.OUTBOUND);
+                    fragment.flightList = FlightDatabase.getInstance(AppFlights.getInstance())
+                            .getFlightDao().getAllFlights(Constants.OUTBOUND);
                     break;
                 case 1:
-                    VooDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights1Period(Constantes.OUTBOUND, filters[0]);
+                    FlightDatabase.getInstance(AppFlights.getInstance())
+                            .getFlightDao().getAllFlights1Period(Constants.OUTBOUND, filters[0]);
                     break;
                 case 2:
-                    fragment.flightList = VooDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights2Period(Constantes.OUTBOUND, filters[0], filters[1]);
+                    fragment.flightList = FlightDatabase.getInstance(AppFlights.getInstance())
+                            .getFlightDao().getAllFlights2Period(Constants.OUTBOUND, filters[0], filters[1]);
                     break;
                 case 3:
-                    fragment.flightList = VooDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights3Period(Constantes.OUTBOUND, filters[0], filters[1], filters[2]);
+                    fragment.flightList = FlightDatabase.getInstance(AppFlights.getInstance())
+                            .getFlightDao().getAllFlights3Period(Constants.OUTBOUND, filters[0], filters[1], filters[2]);
                     break;
                 case 4:
-                    fragment.flightList = VooDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights4Period(Constantes.OUTBOUND, filters[0], filters[1],
+                    fragment.flightList = FlightDatabase.getInstance(AppFlights.getInstance())
+                            .getFlightDao().getAllFlights4Period(Constants.OUTBOUND, filters[0], filters[1],
                                     filters[2], filters[3]);
                     break;
             }
@@ -171,9 +170,9 @@ public class OutboundFragment extends Fragment {
             public int compare(Flight a, Flight b) {
                 int currentSort = AppPreferences.getInstance().getCurrentSort();
 
-                if (currentSort == Constantes.FILTER_PRICE_ASC)
+                if (currentSort == Constants.SORT_PRICE_ASC)
                     return (int) (a.getSaleTotal() - b.getSaleTotal());
-                if (currentSort == Constantes.FILTER_PRICE_DESC)
+                if (currentSort == Constants.SORT_PRICE_DESC)
                     return (int) (b.getSaleTotal() - a.getSaleTotal());
                 else {
                     int result = Integer.valueOf((int) a.getSaleTotal()).compareTo((int) b.getSaleTotal());

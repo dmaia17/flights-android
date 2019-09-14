@@ -1,9 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.danielmaia.flights.views.FilterActivity">
+    tools:context="com.danielmaia.flights.views.FilterActivity"
+    android:background="@color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="handlerFilterActivityViewModel"
+            type="com.danielmaia.flights.viewModels.HandlerFilterActivityViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="28dp"
+        android:paddingRight="28dp">
+
+        <TextView
+            android:id="@+id/txtSubtitleTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:layout_marginTop="17dp"
+            android:drawablePadding="11dp"
+            android:drawableLeft="@drawable/ic_time"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:text="@string/filter_subtitle_time"/>
+
+        <LinearLayout
+            android:id="@+id/llMorning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal"
+            android:onClick="@{() -> handlerFilterActivityViewModel.onTimeMorningClicked()}">
+
+            <ImageView
+                android:id="@+id/imgMorning"
+                android:layout_width="21dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_unselected"/>
+
+            <TextView
+                android:id="@+id/txtMorning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_morning"/>
+
+            <TextView
+                android:id="@+id/txtMorningDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_morning_desc"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/llAfternoon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal"
+            android:onClick="@{() -> handlerFilterActivityViewModel.onTimeAfternoonClicked()}">
+
+            <ImageView
+                android:id="@+id/imgAfternoon"
+                android:layout_width="21dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_unselected"/>
+
+            <TextView
+                android:id="@+id/txtAfternoon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_afternoon"/>
+
+            <TextView
+                android:id="@+id/txtAfternoonDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_afternoon_desc"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/llNight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal"
+            android:onClick="@{() -> handlerFilterActivityViewModel.onTimeNightClicked()}">
+
+            <ImageView
+                android:id="@+id/imgNight"
+                android:layout_width="21dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_unselected"/>
+
+            <TextView
+                android:id="@+id/txtNight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_night"/>
+
+            <TextView
+                android:id="@+id/txtNightDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_night_desc"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/llDawn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal"
+            android:onClick="@{() -> handlerFilterActivityViewModel.onTimeDawnClicked()}">
+
+            <ImageView
+                android:id="@+id/imgDawn"
+                android:layout_width="21dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_unselected"/>
+
+            <TextView
+                android:id="@+id/txtDawn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_dawn"/>
+
+            <TextView
+                android:id="@+id/txtDawnDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_dawn_desc"/>
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="49dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/gray"/>
+
+
+
+
+        <TextView
+            android:id="@+id/txtSubtitleStop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:drawablePadding="11dp"
+            android:drawableLeft="@drawable/ic_stop"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:text="@string/filter_subtitle_stop"/>
+
+        <LinearLayout
+            android:id="@+id/llNoStop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal"
+            android:onClick="@{() -> handlerFilterActivityViewModel.onStopNoClicked()}">
+
+            <ImageView
+                android:id="@+id/imgNoStop"
+                android:layout_width="21dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_unselected"/>
+
+            <TextView
+                android:id="@+id/txtNoStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_no_stop"/>
+
+            <TextView
+                android:id="@+id/txtNoStopDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_no_stop_desc"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/llOneStop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal"
+            android:onClick="@{() -> handlerFilterActivityViewModel.onStopOneClicked()}">
+
+            <ImageView
+                android:id="@+id/imgOneStop"
+                android:layout_width="21dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_unselected"/>
+
+            <TextView
+                android:id="@+id/txtOneStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_one_stop"/>
+
+            <TextView
+                android:id="@+id/txtOneStopDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                android:text="@string/filter_one_stop_desc"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnFilter"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/white"
+            android:text="@string/filter_button_filter"
+            android:onClick="@{() -> handlerFilterActivityViewModel.onFilterButtonClicked()}"/>
+    </LinearLayout>
+</layout>
+
+
+
+
+
+
+
+
+
