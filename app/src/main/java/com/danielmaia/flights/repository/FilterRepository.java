@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.danielmaia.flights.AppFlights;
 import com.danielmaia.flights.database.FlightDatabase;
 import com.danielmaia.flights.model.Filter;
+import com.danielmaia.flights.model.Flight;
 import com.danielmaia.flights.util.Constants;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class FilterRepository {
     MutableLiveData<List<Integer>> listIntegersMutableData = new MutableLiveData<>();
     MutableLiveData<Boolean> insertSuccessMutableData = new MutableLiveData<Boolean>();
     MutableLiveData<Boolean> deleteSuccessMutableData = new MutableLiveData<Boolean>();
+    MutableLiveData<List<Flight>> getAllFlightsMutableData = new MutableLiveData<List<Flight>>();
 
     public MutableLiveData<List<Integer>> getFilters() {
         new Thread(new Runnable() {
@@ -80,6 +82,20 @@ public class FilterRepository {
         return deleteSuccessMutableData;
     }
 
+    public MutableLiveData<List<Flight>> getAllFlights() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    getAllFlightsMutableData.postValue(FlightDatabase.getInstance(AppFlights.getInstance())
+                            .getFlightDao().getAllFlights());
+                } catch (Exception e) {
+                    getAllFlightsMutableData.postValue(null);
+                }
+            }
+        }).start();
 
+        return getAllFlightsMutableData;
+    }
 
 }

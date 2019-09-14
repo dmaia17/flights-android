@@ -5,26 +5,20 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.danielmaia.flights.AppFlights;
 import com.danielmaia.flights.R;
-import com.danielmaia.flights.database.FlightDatabase;
 import com.danielmaia.flights.databinding.ActivityFilterBinding;
-import com.danielmaia.flights.model.Filter;
+import com.danielmaia.flights.model.Flight;
 import com.danielmaia.flights.repository.FlightRepository;
 import com.danielmaia.flights.util.Constants;
 import com.danielmaia.flights.viewModels.FilterActivityViewModel;
 import com.danielmaia.flights.viewModels.HandlerFilterActivityViewModel;
-import com.danielmaia.flights.viewModels.PageOutboundViewModel;
-import com.danielmaia.flights.views.fragments.OutboundFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +32,6 @@ import static com.danielmaia.flights.util.Constants.FILTER_TIME_AFTERNOON;
 import static com.danielmaia.flights.util.Constants.FILTER_TIME_DAWN;
 import static com.danielmaia.flights.util.Constants.FILTER_TIME_MORNING;
 import static com.danielmaia.flights.util.Constants.FILTER_TIME_NIGHT;
-import static com.danielmaia.flights.util.Constants.FILTER_TYPE_TIME;
 
 public class FilterActivity extends AppCompatActivity {
 
@@ -62,11 +55,28 @@ public class FilterActivity extends AppCompatActivity {
     @BindView(R.id.imgOneStop)
     ImageView imgOneStop;
 
+    @BindView(R.id.txtMorningDesc)
+    TextView txtMorningDesc;
+
+    @BindView(R.id.txtAfternoonDesc)
+    TextView txtAfternoonDesc;
+
+    @BindView(R.id.txtNightDesc)
+    TextView txtNightDesc;
+
+    @BindView(R.id.txtDawnDesc)
+    TextView txtDawnDesc;
+
+    @BindView(R.id.txtNoStopDesc)
+    TextView txtNoStopDesc;
+
+    @BindView(R.id.txtOneStopDesc)
+    TextView txtOneStopDesc;
+
     private ActivityFilterBinding binding;
     private HandlerFilterActivityViewModel handlerFilterActivityViewModel;
     public List<Integer> list = new ArrayList<>();
     private FilterActivityViewModel filterActivityViewModel;
-    private boolean edditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +115,84 @@ public class FilterActivity extends AppCompatActivity {
                     configViews();
                 }
             });
+
+        filterActivityViewModel.getAllFlights().observe(this, flightList -> {
+            if (flightList != null)
+                configFlightsCount(flightList);
+        });
+    }
+
+    private void configFlightsCount(List<Flight> flightList){
+        new Thread() {
+            public void run() {
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            int morningCount = 0;
+                            int afternoonCount = 0;
+                            int nightCount = 0;
+                            int dawnCount = 0;
+                            int stop0Count = 0;
+                            int stop1Count = 0;
+
+                            for (Flight flight : flightList){
+                                switch (flight.getPeriod()){
+                                    case Constants.MORNING:
+                                        morningCount++;
+                                        break;
+                                    case Constants.AFTERNOON:
+                                        afternoonCount++;
+                                        break;
+                                    case Constants.NIGHT:
+                                        nightCount++;
+                                        break;
+                                    case Constants.DAWN:
+                                        dawnCount++;
+                                        break;
+                                }
+
+                                switch (flight.getStop()){
+                                    case 0:
+                                        stop0Count++;
+                                        break;
+                                    case 1:
+                                        stop1Count++;
+                                        break;
+                                }
+                            }
+
+                            txtMorningDesc.setText(String.format(morningCount == 1
+                                    ? getResources().getString(R.string.filter_morning_desc_only)
+                                    : getResources().getString(R.string.filter_morning_desc), morningCount));
+
+                            txtAfternoonDesc.setText(String.format(afternoonCount == 1
+                                    ? getResources().getString(R.string.filter_afternoon_desc_only)
+                                    : getResources().getString(R.string.filter_afternoon_desc), afternoonCount));
+
+                            txtNightDesc.setText(String.format(nightCount == 1
+                                    ? getResources().getString(R.string.filter_night_desc_only)
+                                    : getResources().getString(R.string.filter_night_desc), nightCount));
+
+                            txtDawnDesc.setText(String.format(dawnCount == 1
+                                    ? getResources().getString(R.string.filter_dawn_desc_only)
+                                    : getResources().getString(R.string.filter_dawn_desc), dawnCount));
+
+                            txtNoStopDesc.setText(String.format(stop0Count == 1
+                                    ? getResources().getString(R.string.filter_dawn_desc_only)
+                                    : getResources().getString(R.string.filter_dawn_desc), stop0Count));
+
+                            txtOneStopDesc.setText(String.format(stop1Count == 1
+                                    ? getResources().getString(R.string.filter_dawn_desc_only)
+                                    : getResources().getString(R.string.filter_dawn_desc), stop1Count));
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     private void cleanAllFilters(){
@@ -133,8 +221,7 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean result) {
                 configOptions(imgMorning, FILTER_TIME_MORNING, result);
-                //new configViewTask(imgMorning, Constants.FILTER_TYPE_TIME, Constants.FILTER_TIME_MORNING, result).execute();
-            }
+           }
         });
 
         handlerFilterActivityViewModel.getFilterButtonClicked().observe(this, new Observer<Boolean>() {
@@ -182,8 +269,6 @@ public class FilterActivity extends AppCompatActivity {
                 configOptions(imgOneStop, FILTER_STOP_1, result);
             }
         });
-
-
     }
 
     @Override

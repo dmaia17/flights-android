@@ -18,7 +18,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         super(application);
 
         flightRepository = new FlightRepository();
-        this.flightResponseLiveData = flightRepository.getFlights();
+        this.flightResponseLiveData = flightRepository.getFlightsOnServer();
     }
 
     public LiveData<FlightResponse> getFlightResponseLiveData() {

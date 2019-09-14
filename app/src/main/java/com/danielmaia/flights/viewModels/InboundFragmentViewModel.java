@@ -7,21 +7,26 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.danielmaia.flights.model.Flight;
 import com.danielmaia.flights.repository.FlightRepository;
 import com.danielmaia.flights.retrofit.responses.FlightResponse;
+import com.danielmaia.flights.util.Constants;
 
-public class PageOutboundViewModel extends AndroidViewModel {
+import java.util.List;
+
+public class InboundFragmentViewModel extends AndroidViewModel {
 
     private FlightRepository flightRepository;
     private LiveData<FlightResponse> flightResponseLiveData;
     private MutableLiveData<Integer> filterCount;
+    private LiveData<List<Flight>> listFlightInboundLiveData;
 
-    public PageOutboundViewModel(@NonNull Application application) {
+    public InboundFragmentViewModel(@NonNull Application application) {
         super(application);
 
         flightRepository = new FlightRepository();
         filterCount = new MutableLiveData<Integer>();
-        this.flightResponseLiveData = flightRepository.getFlights();
+        this.flightResponseLiveData = flightRepository.getFlightsOnServer();
     }
 
     public LiveData<FlightResponse> getFlightResponseLiveData() {
@@ -34,5 +39,10 @@ public class PageOutboundViewModel extends AndroidViewModel {
 
     public void setFilterCount(MutableLiveData<Integer> filterCount) {
         this.filterCount = filterCount;
+    }
+
+    public LiveData<List<Flight>> getListFlightInboundOnDatabase(){
+        this.listFlightInboundLiveData = flightRepository.getFlightsOnDatabase(Constants.INBOUND);
+        return listFlightInboundLiveData;
     }
 }

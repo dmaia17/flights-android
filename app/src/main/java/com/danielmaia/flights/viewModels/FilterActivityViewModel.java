@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.danielmaia.flights.model.Flight;
 import com.danielmaia.flights.repository.FilterRepository;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class FilterActivityViewModel extends AndroidViewModel {
     private LiveData<List<Integer>> filterLiveData;
     private LiveData<Boolean> insertSuccessLiveData;
     private LiveData<Boolean> deleteSuccessLiveData;
+    private LiveData<List<Flight>> getAllFlightsLiveData;
 
     public FilterActivityViewModel(@NonNull Application application) {
         super(application);
@@ -37,6 +39,11 @@ public class FilterActivityViewModel extends AndroidViewModel {
     public LiveData<Boolean> deleteAllFilters(){
         this.deleteSuccessLiveData = filterRepository.deleteAll();
         return deleteSuccessLiveData;
+    }
+
+    public LiveData<List<Flight>> getAllFlights(){
+        this.getAllFlightsLiveData = filterRepository.getAllFlights();
+        return getAllFlightsLiveData;
     }
 
 }

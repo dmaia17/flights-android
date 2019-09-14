@@ -19,11 +19,10 @@ import android.widget.TextView;
 
 import com.danielmaia.flights.AppFlights;
 import com.danielmaia.flights.R;
-import com.danielmaia.flights.database.FlightDatabase;
 import com.danielmaia.flights.model.Flight;
 import com.danielmaia.flights.util.AppPreferences;
 import com.danielmaia.flights.util.Constants;
-import com.danielmaia.flights.viewModels.PageInboundViewModel;
+import com.danielmaia.flights.viewModels.InboundFragmentViewModel;
 import com.danielmaia.flights.views.adapters.InboundAdapter;
 
 import java.util.Collections;
@@ -46,7 +45,7 @@ public class InboundFragment extends Fragment {
     TextView txtCountFilter;
 
     InboundAdapter adapter;
-    private PageInboundViewModel pageInboundViewModel;
+    private InboundFragmentViewModel inboundFragmentViewModel;
     private List<Flight> flightList;
 
 
@@ -81,9 +80,8 @@ public class InboundFragment extends Fragment {
         rvFlights.setVisibility(View.INVISIBLE);
         txtCountFilter.setVisibility(View.INVISIBLE);
 
-        // init ViewModel
-        pageInboundViewModel = ViewModelProviders.of(requireActivity()).get(PageInboundViewModel.class);
-        getFlights();
+        inboundFragmentViewModel = ViewModelProviders.of(requireActivity()).get(InboundFragmentViewModel.class);
+        getFlightsOnService();
         configFilterCount();
     }
 
@@ -94,11 +92,11 @@ public class InboundFragment extends Fragment {
         adapter = new InboundAdapter(flightList);
         rvFlights.setAdapter(adapter);
 
-        pageInboundViewModel.getFilterCount().setValue(flightList.size());
+        inboundFragmentViewModel.getFilterCount().setValue(flightList.size());
     }
 
     private void configFilterCount(){
-        pageInboundViewModel.getFilterCount().observe(this, new Observer<Integer>() {
+        inboundFragmentViewModel.getFilterCount().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer sizeList) {
                 txtCountFilter.setVisibility(View.VISIBLE);
@@ -111,9 +109,18 @@ public class InboundFragment extends Fragment {
         });
     }
 
-    private void getFlights() {
-        pageInboundViewModel.getFlightResponseLiveData().observe(this, flightResponse -> {
+    private void getFlightsOnService() {
+        inboundFragmentViewModel.getFlightResponseLiveData().observe(this, flightResponse -> {
             if (flightResponse != null) {
+                getFlightsOnDatabase();
+            }
+        });
+    }
+
+    private void getFlightsOnDatabase(){
+        inboundFragmentViewModel.getListFlightInboundOnDatabase().observe(this, flightList -> {
+            if (flightList != null) {
+                this.flightList = flightList;
                 new InboundFragment.fillListTask(this).execute();
             }
         });
@@ -128,33 +135,6 @@ public class InboundFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            int[] filters = AppPreferences.getInstance().getCurrentFilter();
-            int lenght = filters == null ? 0 : filters.length;
-
-            switch (lenght){
-                case 0:
-                    fragment.flightList = FlightDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights(Constants.INBOUND);
-                    break;
-                case 1:
-                    FlightDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights1Period(Constants.INBOUND, filters[0]);
-                    break;
-                case 2:
-                    fragment.flightList = FlightDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights2Period(Constants.INBOUND, filters[0], filters[1]);
-                    break;
-                case 3:
-                    fragment.flightList = FlightDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights3Period(Constants.INBOUND, filters[0], filters[1], filters[2]);
-                    break;
-                case 4:
-                    fragment.flightList = FlightDatabase.getInstance(AppFlights.getInstance())
-                            .getFlightDao().getAllFlights4Period(Constants.INBOUND, filters[0], filters[1],
-                                    filters[2], filters[3]);
-                    break;
-            }
-
             Collections.sort(fragment.flightList, new InboundFragment.fillListTask.SortFlights());
             return null;
         }

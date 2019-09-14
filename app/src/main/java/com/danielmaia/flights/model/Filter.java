@@ -3,13 +3,13 @@ package com.danielmaia.flights.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(primaryKeys = {"id","filterType"})
 public class Filter {
-    @PrimaryKey
     @NonNull
     private int id;
+
+    @NonNull
     private int filterType;
 
     public Filter() {

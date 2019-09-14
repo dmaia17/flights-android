@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Voos</string>
+    <string name="app_name">Flights</string>
 
     <!-- Fontawesome -->
     <string name="fa_icon_filter">&#xf160;</string>
@@ -37,14 +37,18 @@
     <string name="filter_night">NOITE</string>
     <string name="filter_dawn">MADRUGADA</string>
     <string name="filter_morning_desc"> - 06:00 às 11:59 (%d VOOS)</string>
+    <string name="filter_morning_desc_only"> - 06:00 às 11:59 (1 VOO)</string>
     <string name="filter_afternoon_desc"> - 12:00 às 17:59 (%d VOOS)</string>
+    <string name="filter_afternoon_desc_only"> - 12:00 às 17:59 (1 VOO)</string>
     <string name="filter_night_desc"> - 18:00 às 23:59 (%d VOOS)</string>
-    <string name="filter_dawn_desc"> - 00:00 às 05:59 (%d VOO)</string>
+    <string name="filter_night_desc_only"> - 18:00 às 23:59 (1 VOO)</string>
+    <string name="filter_dawn_desc"> - 00:00 às 05:59 (%d VOOS)</string>
+    <string name="filter_dawn_desc_only"> - 00:00 às 05:59 (1 VOO)</string>
     <string name="filter_subtitle_stop">Filtrar por Paradas</string>
     <string name="filter_no_stop">VOO DIRETO</string>
     <string name="filter_one_stop">1 PARADA</string>
-    <string name="filter_no_stop_desc"> (%d VOOS)</string>
-    <string name="filter_one_stop_desc"> (%d VOOS)</string>
+    <string name="filter_stop_desc"> (%d VOOS)</string>
+    <string name="filter_stop_desc_only"> (1 VOO)</string>
     <string name="filter_button_filter">Aplicar filtro</string>
 </resources>
 
