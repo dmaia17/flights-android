@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.danielmaia.flights.views.MainActivity">
+
+    <data>
+        <variable
+            name="handlerMainActivityViewModel"
+            type="com.danielmaia.flights.viewModels.HandlerMainActivityViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:id="@+id/rlTab1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:background="@color/white"
+                android:onClick="@{() -> handlerMainActivityViewModel.onTab1Clicked()}">
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#d8dcde"
+                    android:layout_alignParentRight="true"/>
+
+                <View
+                    android:id="@+id/vwSelected1"
+                    android:layout_width="match_parent"
+                    android:layout_height="4.9dp"
+                    android:background="@color/colorAccent"
+                    android:layout_alignParentBottom="true"/>
+
+                <TextView
+                    android:id="@+id/txtTitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center"
+                    android:text="@string/main_title_1"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    android:background="?android:attr/selectableItemBackground"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlTab2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:background="@color/light_gray"
+                android:onClick="@{() -> handlerMainActivityViewModel.onTab2Clicked()}">
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#d8dcde"
+                    android:layout_alignParentLeft="true"/>
+
+                <View
+                    android:id="@+id/vwSelected2"
+                    android:layout_width="match_parent"
+                    android:layout_height="4.9dp"
+                    android:background="@color/transparent"
+                    android:layout_alignParentBottom="true"/>
+
+                <TextView
+                    android:id="@+id/txtTitle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center"
+                    android:text="@string/main_title_2"
+                    android:textColor="@color/text_color_desc"
+                    android:textSize="12sp"
+                    android:background="?android:attr/selectableItemBackground"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="40dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorAccent">
+
+            <RelativeLayout
+                android:id="@+id/rlFilter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{() -> handlerMainActivityViewModel.onFilterClicked()}">
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#e7edf3"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:id="@+id/txtFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center_vertical"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="5dp"
+                    android:text="@string/main_filter"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlSort"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{() -> handlerMainActivityViewModel.onSortClicked()}">
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#e7edf3"
+                    android:layout_alignParentLeft="true"/>
+
+                <TextView
+                    android:id="@+id/txtSort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center_vertical"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="5dp"
+                    android:text="@string/main_sort"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Voos</string>
+
+    <!-- Fontawesome -->
+    <string name="fa_icon_filter">&#xf160;</string>
+    <string name="fa_icon_sort">&#xf0b0;</string>
+
+    <!--Main Activity -->
+    <string name="main_title_1">VOO DE IDA</string>
+    <string name="main_title_2">VOO DE VOLTA</string>
+    <string name="main_filtered">Com filtro: %o voos</string>
+    <string name="main_filter">FILTRAR</string>
+    <string name="main_sort">ORDENAR</string>
+
+    <string name="main_adapter_price">R$ %o</string>
+    <string name="main_adapter_buy">Comprar</string>
+    <string name="main_adapter_stop">%o parada</string>
+    <string name="main_adapter_stops">%o paradas</string>
+    <string name="main_adapter_tax_price">Valor total c/ taxas</string>
+</resources>
