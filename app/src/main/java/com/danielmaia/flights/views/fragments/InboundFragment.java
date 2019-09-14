@@ -21,6 +21,7 @@ import com.danielmaia.flights.AppFlights;
 import com.danielmaia.flights.R;
 import com.danielmaia.flights.database.VooDatabase;
 import com.danielmaia.flights.model.Flight;
+import com.danielmaia.flights.util.AppPreferences;
 import com.danielmaia.flights.util.Constantes;
 import com.danielmaia.flights.viewModels.PageInboundViewModel;
 import com.danielmaia.flights.views.adapters.InboundAdapter;
@@ -48,6 +49,7 @@ public class InboundFragment extends Fragment {
     private PageInboundViewModel pageInboundViewModel;
     private List<Flight> flightList;
 
+
     public InboundFragment() {
     }
 
@@ -57,11 +59,6 @@ public class InboundFragment extends Fragment {
 
     @Override public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // init ViewModel
-        pageInboundViewModel = ViewModelProviders.of(requireActivity()).get(PageInboundViewModel.class);
-        getFlights();
-        configFilterCount();
     }
 
     @Override
@@ -74,7 +71,20 @@ public class InboundFragment extends Fragment {
 
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        progress.setVisibility(View.VISIBLE);
+        rvFlights.setVisibility(View.INVISIBLE);
+        txtCountFilter.setVisibility(View.INVISIBLE);
+
+        // init ViewModel
+        pageInboundViewModel = ViewModelProviders.of(requireActivity()).get(PageInboundViewModel.class);
+        getFlights();
+        configFilterCount();
     }
 
     private void initialization() {
@@ -118,7 +128,7 @@ public class InboundFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            int[] filters = AppFlights.getInstance().getCurrentFilter();
+            int[] filters = AppPreferences.getInstance().getCurrentFilter();
             int lenght = filters == null ? 0 : filters.length;
 
             switch (lenght){
@@ -153,13 +163,16 @@ public class InboundFragment extends Fragment {
         protected void onPostExecute(Void agentsCount) {
             fragment.initialization();
             fragment.progress.setVisibility(View.GONE);
+            fragment.rvFlights.setVisibility(View.VISIBLE);
         }
 
         class SortFlights implements Comparator<Flight> {
             public int compare(Flight a, Flight b) {
-                if (AppFlights.getInstance().getCurrentSort() == Constantes.FILTER_PRICE_DESC)
+                int currentSort = AppPreferences.getInstance().getCurrentSort();
+
+                if (currentSort == Constantes.FILTER_PRICE_ASC)
                     return (int) (a.getSaleTotal() - b.getSaleTotal());
-                if (AppFlights.getInstance().getCurrentSort() == Constantes.FILTER_PRICE_ASC)
+                if (currentSort == Constantes.FILTER_PRICE_DESC)
                     return (int) (b.getSaleTotal() - a.getSaleTotal());
                 else {
                     int result = Integer.valueOf((int) a.getSaleTotal()).compareTo((int) b.getSaleTotal());

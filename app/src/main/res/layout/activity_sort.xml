@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.danielmaia.flights.views.SortActivity">
+
+    <data>
+        <variable
+            name="handlerSortActivityViewModel"
+            type="com.danielmaia.flights.viewModels.HandlerSortActivityViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="28dp"
+        android:paddingRight="28dp">
+
+        <TextView
+            android:id="@+id/txtSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:layout_marginTop="17dp"
+            android:drawablePadding="5dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:text="@string/sort_subtitle"/>
+
+        <RadioGroup
+            android:id="@+id/radiogroup_map1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/rbLowestPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorAccent"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:text="@string/sort_lowest_price"
+                android:textColor="@color/text_color"
+                android:onClick="@{() -> handlerSortActivityViewModel.onOptionLowestClicked()}"/>
+
+            <RadioButton
+                android:id="@+id/rbBiggestPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorAccent"
+                android:layout_marginTop="9dp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:text="@string/sort_biggest_price"
+                android:textColor="@color/text_color"
+                android:onClick="@{() -> handlerSortActivityViewModel.onBiggestLowestClicked()}"/>
+
+
+            <RadioButton
+                android:id="@+id/rbPriceTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorAccent"
+                android:layout_marginTop="9dp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:text="@string/sort_price_time"
+                android:textColor="@color/text_color"
+                android:onClick="@{() -> handlerSortActivityViewModel.onPriceTimeLowestClicked()}"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnSort"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="33dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/white"
+            android:text="@string/sort_button"
+            android:onClick="@{() -> handlerSortActivityViewModel.onSortButtonClicked()}"/>
+
+    </LinearLayout>
+</layout>

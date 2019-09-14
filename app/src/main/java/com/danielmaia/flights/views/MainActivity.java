@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -61,52 +62,59 @@ public class MainActivity extends AppCompatActivity implements ViewPagerAdapter.
     @BindView(R.id.txtSort)
     TextView txtSort;
 
-    private HandlerMainActivityViewModel mHandlerMainActivityViewModel;
-    private ActivityMainBinding mBinding;
-    private int mTabSelected;
+    private HandlerMainActivityViewModel handlerMainActivityViewModel;
+    private ActivityMainBinding binding;
+    private int tabSelected;
     private ViewPagerAdapter viewPagerAdapter;
     private MainActivityViewModel mainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         ButterKnife.bind(this);
 
-        //initialization();
-        //getFlights();
         configHandlerViewModel();
         configPager();
         configViews();
     }
 
-    private void initialization() {
-        // View Model
-        mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-    }
-
     private void configHandlerViewModel(){
-        mHandlerMainActivityViewModel = ViewModelProviders.of(this).get(HandlerMainActivityViewModel.class);
-        mBinding.setHandlerMainActivityViewModel(mHandlerMainActivityViewModel);
+        handlerMainActivityViewModel = ViewModelProviders.of(this).get(HandlerMainActivityViewModel.class);
+        binding.setHandlerMainActivityViewModel(handlerMainActivityViewModel);
 
-        mHandlerMainActivityViewModel.getmTab1Clicked().observe(this, new Observer<Boolean>() {
+        handlerMainActivityViewModel.getTab1Clicked().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 tabClicked(TAB_OUTBOUND);
             }
         });
 
-        mHandlerMainActivityViewModel.getmTab2Clicked().observe(this, new Observer<Boolean>() {
+        handlerMainActivityViewModel.getTab2Clicked().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 tabClicked(TAB_INBOUND);
             }
         });
+
+        handlerMainActivityViewModel.getFilterClicked().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                startActivity(new Intent(MainActivity.this, FilterActivity.class));
+            }
+        });
+
+        handlerMainActivityViewModel.getSortClicked().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                startActivity(new Intent(MainActivity.this, SortActivity.class));
+            }
+        });
     }
 
     private void tabClicked(int tab){
-        mTabSelected = tab;
-        viewPagerAdapter.swipeToPrevious(mTabSelected);
+        tabSelected = tab;
+        viewPagerAdapter.swipeToPrevious(tabSelected);
         configTabs();
     }
 
@@ -122,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements ViewPagerAdapter.
         viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
             @Override
             public void transformPage(View page, float position) {
-                    mTabSelected = viewPager.getCurrentItem();
+                    tabSelected = viewPager.getCurrentItem();
                     configTabs();
             }
         });
@@ -143,17 +151,17 @@ public class MainActivity extends AppCompatActivity implements ViewPagerAdapter.
             @Override
             public void run() {
                 rlTab1.setBackgroundColor(getResources()
-                        .getColor(mTabSelected == TAB_OUTBOUND ? R.color.white :  R.color.light_gray));
+                        .getColor(tabSelected == TAB_OUTBOUND ? R.color.white :  R.color.light_gray));
                 rlTab2.setBackgroundColor(getResources()
-                        .getColor(mTabSelected == TAB_INBOUND ? R.color.white :  R.color.light_gray));
+                        .getColor(tabSelected == TAB_INBOUND ? R.color.white :  R.color.light_gray));
                 txtTitle1.setTextColor(getResources()
-                        .getColor(mTabSelected == TAB_OUTBOUND ? R.color.text_color :  R.color.text_color_desc));
+                        .getColor(tabSelected == TAB_OUTBOUND ? R.color.text_color :  R.color.text_color_desc));
                 txtTitle2.setTextColor(getResources()
-                        .getColor(mTabSelected == TAB_INBOUND ? R.color.text_color :  R.color.text_color_desc));
+                        .getColor(tabSelected == TAB_INBOUND ? R.color.text_color :  R.color.text_color_desc));
                 vwSelected1.setBackgroundColor(getResources()
-                        .getColor(mTabSelected == TAB_OUTBOUND ? R.color.colorAccent :  R.color.transparent));
+                        .getColor(tabSelected == TAB_OUTBOUND ? R.color.colorAccent :  R.color.transparent));
                 vwSelected2.setBackgroundColor(getResources()
-                        .getColor(mTabSelected == TAB_INBOUND ? R.color.colorAccent :  R.color.transparent));
+                        .getColor(tabSelected == TAB_INBOUND ? R.color.colorAccent :  R.color.transparent));
             }
         });
     }
@@ -166,23 +174,5 @@ public class MainActivity extends AppCompatActivity implements ViewPagerAdapter.
     @Override
     public void onPageScrolled(float positionOffset) {
 
-    }
-
-    /**
-     * get flights articles from api
-     *
-     * @param @null
-     */
-    private void getFlights() {
-        mainActivityViewModel.getFlightResponseLiveData().observe(this, flightResponse -> {
-            if (flightResponse != null) {
-
-                /*
-                progress_circular_movie_article.setVisibility(View.GONE);
-                List<Article> articles = articleResponse.getArticles();
-                articleArrayList.addAll(articles);
-                adapter.notifyDataSetChanged(); */
-            }
-        });
     }
 }

@@ -13,9 +13,18 @@
     <string name="main_count_filter_one">Com filtro: 1 voo</string>
     <string name="main_count_filter">Com filtro: %d voos</string>
 
+    <!--Main Adapter -->
     <string name="main_adapter_price">R$ %s</string>
     <string name="main_adapter_buy">Comprar</string>
     <string name="main_adapter_stop">%s, %d parada</string>
     <string name="main_adapter_stops">%s, %d paradas</string>
     <string name="main_adapter_tax_price">Valor total c/ taxas</string>
+
+    <!--Sort Activity -->
+    <string name="sort_title">Ordenação</string>
+    <string name="sort_subtitle">Ordenar</string>
+    <string name="sort_lowest_price">Menor preço</string>
+    <string name="sort_biggest_price">Maior preço</string>
+    <string name="sort_price_time">Menor Preço e Menor tempo de voo</string>
+    <string name="sort_button">Aplicar ordenação</string>
 </resources>

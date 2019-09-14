@@ -10,7 +10,7 @@ public class Constantes {
     public static final int AFTERNOON = 2;
     public static final int NIGHT = 3;
 
-    public static final int FILTER_PRICE_DESC = 0;
-    public static final int FILTER_PRICE_ASC = 1;
+    public static final int FILTER_PRICE_ASC = 0;
+    public static final int FILTER_PRICE_DESC = 1;
     public static final int FILTER_PRICE_TIME = 2;
 }
