@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.danielmaia.flights.AppFlights;
 import com.danielmaia.flights.R;
@@ -25,6 +27,7 @@ import com.danielmaia.flights.util.Constants;
 import com.danielmaia.flights.viewModels.InboundFragmentViewModel;
 import com.danielmaia.flights.views.adapters.InboundAdapter;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -38,16 +41,21 @@ public class InboundFragment extends Fragment {
     @BindView(R.id.progress)
     ProgressBar progress;
 
+    @BindView(R.id.llContainer)
+    LinearLayout llContainer;
+
     @BindView(R.id.rvFlights)
     RecyclerView rvFlights;
 
     @BindView(R.id.txtCountFilter)
     TextView txtCountFilter;
 
+    @BindView(R.id.txtEmptyList)
+    TextView txtEmptyList;
+
     InboundAdapter adapter;
     private InboundFragmentViewModel inboundFragmentViewModel;
-    private List<Flight> flightList;
-
+    private List<Flight> flightList = new ArrayList<>();;
 
     public InboundFragment() {
     }
@@ -77,7 +85,7 @@ public class InboundFragment extends Fragment {
         super.onResume();
 
         progress.setVisibility(View.VISIBLE);
-        rvFlights.setVisibility(View.INVISIBLE);
+        llContainer.setVisibility(View.INVISIBLE);
         txtCountFilter.setVisibility(View.INVISIBLE);
 
         inboundFragmentViewModel = ViewModelProviders.of(requireActivity()).get(InboundFragmentViewModel.class);
@@ -113,6 +121,10 @@ public class InboundFragment extends Fragment {
         inboundFragmentViewModel.getFlightResponseLiveData().observe(this, flightResponse -> {
             if (flightResponse != null) {
                 getFlightsOnDatabase();
+            } else {
+                Toast.makeText(AppFlights.getInstance(), AppFlights.getInstance()
+                        .getString(R.string.main_error_service), Toast.LENGTH_SHORT).show();
+                checkEmptyList();
             }
         });
     }
@@ -124,6 +136,18 @@ public class InboundFragment extends Fragment {
                 new InboundFragment.fillListTask(this).execute();
             }
         });
+    }
+
+    private void checkEmptyList(){
+        progress.setVisibility(View.GONE);
+
+        if (flightList.size() > 0){
+            llContainer.setVisibility(View.VISIBLE);
+            txtEmptyList.setVisibility(View.GONE);
+        } else {
+            llContainer.setVisibility(View.GONE);
+            txtEmptyList.setVisibility(View.VISIBLE);
+        }
     }
 
     private static class fillListTask extends AsyncTask<Void, Void, Void> {
@@ -142,8 +166,7 @@ public class InboundFragment extends Fragment {
         @Override
         protected void onPostExecute(Void agentsCount) {
             fragment.initialization();
-            fragment.progress.setVisibility(View.GONE);
-            fragment.rvFlights.setVisibility(View.VISIBLE);
+            fragment.checkEmptyList();
         }
 
         class SortFlights implements Comparator<Flight> {

@@ -6,12 +6,15 @@
     <string name="fa_icon_sort">&#xf0b0;</string>
 
     <!--Main Activity -->
+    <string name="main_title">VOOS</string>
     <string name="main_title_1">VOO DE IDA</string>
     <string name="main_title_2">VOO DE VOLTA</string>
     <string name="main_filter">FILTRAR</string>
     <string name="main_sort">ORDENAR</string>
     <string name="main_count_filter_one">Com filtro: 1 voo</string>
     <string name="main_count_filter">Com filtro: %d voos</string>
+    <string name="main_empty_list">Não há dados para serem exibidos.</string>
+    <string name="main_error_service">Ocorreu um erro ao buscar os dados</string>
 
     <!--Main Adapter -->
     <string name="main_adapter_price">R$ %s</string>

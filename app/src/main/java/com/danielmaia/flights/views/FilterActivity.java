@@ -100,10 +100,16 @@ public class FilterActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        if (item.getItemId() == R.id.clean)
-            cleanAllFilters();
+        switch (item.getItemId()) {
+            case R.id.clean:
+                cleanAllFilters();
+                return true;
 
-        return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void configViewModel(){
@@ -129,7 +135,6 @@ public class FilterActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
                             int morningCount = 0;
                             int afternoonCount = 0;
                             int nightCount = 0;

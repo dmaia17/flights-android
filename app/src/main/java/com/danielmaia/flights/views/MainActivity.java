@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.danielmaia.flights.R;
 import com.danielmaia.flights.databinding.ActivityMainBinding;
 import com.danielmaia.flights.viewModels.HandlerMainActivityViewModel;
-import com.danielmaia.flights.viewModels.MainActivityViewModel;
 import com.danielmaia.flights.views.adapters.ViewPagerAdapter;
 
 import butterknife.BindView;
@@ -66,13 +65,14 @@ public class MainActivity extends AppCompatActivity implements ViewPagerAdapter.
     private ActivityMainBinding binding;
     private int tabSelected;
     private ViewPagerAdapter viewPagerAdapter;
-    private MainActivityViewModel mainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         ButterKnife.bind(this);
+
+        getSupportActionBar().setTitle(getResources().getString(R.string.main_title));
 
         configHandlerViewModel();
         configPager();

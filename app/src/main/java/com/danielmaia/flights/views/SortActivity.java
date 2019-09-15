@@ -30,6 +30,7 @@ public class SortActivity extends AppCompatActivity {
 
     private HandlerSortActivityViewModel handlerSortActivityViewModel;
     private ActivitySortBinding binding;
+    int selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +46,10 @@ public class SortActivity extends AppCompatActivity {
         configInitialData();
     }
 
-
     private void configInitialData(){
-        int currentSort = AppPreferences.getInstance().getCurrentSort();
+        selected = AppPreferences.getInstance().getCurrentSort();
 
-        switch (currentSort){
+        switch (selected){
             case Constants.SORT_PRICE_ASC:
                 handlerSortActivityViewModel.getOptionLowestClicked().setValue(true);
                 break;
@@ -69,7 +69,7 @@ public class SortActivity extends AppCompatActivity {
         handlerSortActivityViewModel.getOptionLowestClicked().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                AppPreferences.getInstance().setCurrentSort(Constants.SORT_PRICE_ASC);
+                selected = Constants.SORT_PRICE_ASC;
 
                 if (!rbLowestPrice.isChecked())
                     rbLowestPrice.setChecked(true);
@@ -79,7 +79,7 @@ public class SortActivity extends AppCompatActivity {
         handlerSortActivityViewModel.getOptionBiggestClicked().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                AppPreferences.getInstance().setCurrentSort(Constants.SORT_PRICE_DESC);
+                selected = Constants.SORT_PRICE_DESC;
 
                 if (!rbBiggestPrice.isChecked())
                     rbBiggestPrice.setChecked(true);
@@ -90,7 +90,7 @@ public class SortActivity extends AppCompatActivity {
         handlerSortActivityViewModel.getOptionPriceTimeClicked().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                AppPreferences.getInstance().setCurrentSort(Constants.SORT_PRICE_TIME);
+                selected = Constants.SORT_PRICE_TIME;
 
                 if (!rbPriceTime.isChecked())
                     rbPriceTime.setChecked(true);
@@ -100,7 +100,7 @@ public class SortActivity extends AppCompatActivity {
         handlerSortActivityViewModel.getSortButtonClicked().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                int selected = AppPreferences.getInstance().getCurrentSort();
+                AppPreferences.getInstance().setCurrentSort(selected);
                 finish();
             }
         });
