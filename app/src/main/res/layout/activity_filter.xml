@@ -298,6 +298,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/white"
             android:text="@string/filter_button_filter"
+            android:textAllCaps="false"
             android:onClick="@{() -> handlerFilterActivityViewModel.onFilterButtonClicked()}"/>
     </LinearLayout>
 </layout>

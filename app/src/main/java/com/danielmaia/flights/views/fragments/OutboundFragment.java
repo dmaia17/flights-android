@@ -55,7 +55,7 @@ public class OutboundFragment extends Fragment {
     @BindView(R.id.txtEmptyList)
     TextView txtEmptyList;
 
-    OutboundAdapter adapter;
+    private OutboundAdapter adapter;
     private OutboundFragmentViewModel outboundFragmentViewModel;
     private List<Flight> flightList = new ArrayList<>();
 
