@@ -27,7 +27,6 @@
         android:text="@string/main_empty_list"
         android:visibility="gone"/>
 
-
     <LinearLayout
         android:id="@+id/llContainer"
         android:layout_width="match_parent"
@@ -35,18 +34,48 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <TextView
-            android:id="@+id/txtCountFilter"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="20dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:textSize="14sp"
-            android:textColor="#879395"
-            android:text="@string/main_count_filter_one"
-            android:visibility="invisible"/>
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/txtCountFilterDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="14sp"
+                    android:textColor="#879395"
+                    android:text="@string/main_count_filter" />
+
+                <TextView
+                    android:id="@+id/txtCountFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:textSize="14sp"
+                    android:textColor="#879395"
+                    android:text="10" />
+
+                <TextView
+                    android:id="@+id/txtCountFilterFlights"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="14sp"
+                    android:textColor="#879395"
+                    android:text="@string/main_count_filter_flights" />
+            </LinearLayout>
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFlights"

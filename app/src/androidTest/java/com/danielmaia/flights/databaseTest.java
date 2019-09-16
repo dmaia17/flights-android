@@ -35,9 +35,9 @@ public class databaseTest {
     }
 
     @Test
-    public void insertFlightTest() {
+    public void insertAndDeleteFlightTest() {
         Flight flight = new Flight();
-        flight.setStop(1);
+        flight.setStop(10);
         flight.setAirline("azul");
         flight.setDuration(100);
         flight.setFlightNumber("1");
@@ -52,19 +52,27 @@ public class databaseTest {
         FlightDao flightDao = db.getFlightDao();
         flightDao.insert(flight);
 
-        List<Flight> flightList = flightDao.getFlightsByStop(1);
+        List<Flight> flightList = flightDao.getFlightsByStop(10);
         Assert.assertEquals(flightList.get(0).getFlightNumber(), flight.getFlightNumber());
+
+        flightDao.deleteFlightByFlightNumber(flight.getFlightNumber());
+        flightList = flightDao.getFlightsByStop(10);
+        Assert.assertEquals(flightList.size(), 0);
     }
 
     @Test
-    public void insertFilterTest() {
-        Filter filter = new Filter(Constants.FILTER_TYPE_TIME, Constants.FILTER_TIME_MORNING);
+    public void insertAndDeleteFilterTest() {
+        Filter filter = new Filter(10, 10);
 
         FilterDao filterDao = db.getFilterDao();
         filterDao.insert(filter);
 
-        List<Filter> filterList = filterDao.getFilters();
+        List<Filter> filterList = filterDao.getFiltersByType(10);
         Assert.assertEquals(filterList.get(0).getId(), filter.getId());
+
+        filterDao.deleteFilterById(filter.getId());
+        filterList = filterDao.getFiltersByType(10);
+        Assert.assertNotEquals(filterList.size(), 0);
     }
 
 }

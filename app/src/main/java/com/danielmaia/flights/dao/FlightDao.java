@@ -25,6 +25,9 @@ public interface FlightDao {
     @Query("SELECT * FROM flight WHERE stop = :stop")
     List<Flight> getFlightsByStop(int stop);
 
+    @Query("DELETE FROM flight WHERE flightNumber = :id")
+    void deleteFlightByFlightNumber(String id);
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Flight flight);

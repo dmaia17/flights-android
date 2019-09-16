@@ -49,6 +49,9 @@ public class OutboundFragment extends Fragment {
     @BindView(R.id.txtCountFilter)
     TextView txtCountFilter;
 
+    @BindView(R.id.txtCountFilterFlights)
+    TextView txtCountFilterFlights;
+
     @BindView(R.id.txtEmptyList)
     TextView txtEmptyList;
 
@@ -86,7 +89,6 @@ public class OutboundFragment extends Fragment {
 
         progress.setVisibility(View.VISIBLE);
         llContainer.setVisibility(View.INVISIBLE);
-        txtCountFilter.setVisibility(View.INVISIBLE);
 
         outboundFragmentViewModel = ViewModelProviders.of(requireActivity()).get(OutboundFragmentViewModel.class);
         getFlightsOnService();
@@ -107,12 +109,11 @@ public class OutboundFragment extends Fragment {
         outboundFragmentViewModel.getFilterCount().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer sizeList) {
-                txtCountFilter.setVisibility(View.VISIBLE);
-
-                if (sizeList == 1)
-                    txtCountFilter.setText(AppFlights.getInstance().getResources().getString(R.string.main_count_filter_one));
-                else
-                    txtCountFilter.setText(String.format(AppFlights.getInstance().getResources().getString(R.string.main_count_filter), sizeList));
+                llContainer.setVisibility(View.VISIBLE);
+                txtCountFilter.setText(String.valueOf(sizeList));
+                txtCountFilterFlights.setText(sizeList == 1
+                        ? getActivity().getResources().getString(R.string.main_count_filter_flight)
+                        : getActivity().getResources().getString(R.string.main_count_filter_flights));
             }
         });
     }
